@@ -17,32 +17,48 @@ public class Game {
         startGameLoop();
     }
 
-    public void startGameLoop(){
+    public void startGameLoop() {
 
         int overallResult = 0;
 
-        for (int i = 0; i < 3; i++) {
+        System.out.println("""
+                Welcome to Rock-Paper-Scissors Game!
+                If you want to play, please enter (1), otherwise enter any non-empty input.""");
 
-            String userChoice;
+        String continueGameStr = scanner.nextLine();
+        boolean continueGame = continueGameStr.equals("1");
 
-            do {
-                userChoice = getUserInput();
+        while (continueGame) {
 
-            } while (!isValid(userChoice));
+            for (int i = 0; i < 3; i++) {
 
-            GameObject botChoiceObj = getRandomObjectForBot();
-            GameObject userChoiceObj = gameObjects[Integer.parseInt(userChoice) - 1];
+                String userChoice;
 
-            int result = userChoiceObj.compareTo(botChoiceObj);
+                do {
+                    userChoice = getUserInput();
 
-            getWinner(result);
+                } while (!isValid(userChoice));
 
-            overallResult += result;
+                GameObject botChoiceObj = getRandomObjectForBot();
+                GameObject userChoiceObj = gameObjects[Integer.parseInt(userChoice) - 1];
+
+                int result = userChoiceObj.compareTo(botChoiceObj);
+
+                getWinner(result);
+
+                overallResult += result;
+            }
+
+            getWinner(overallResult);
+
+            System.out.println("If you want to continue playing, please enter 1, otherwise any non-empty input");
+            continueGame = scanner.nextLine().equals("1");
+
+            if (!continueGame)
+                System.out.println("Thank you for playing!");
         }
 
-        getWinner(overallResult);
-
-
+        scanner.close();
     }
 
     private void getWinner(int overallResult) {
