@@ -4,7 +4,7 @@ public abstract class GameObject {
     protected final String name;
     protected final int id;
 
-    private int[][] result = {
+    private final int[][] result = {
             //rock  paper  scissors
             {   0,    -1,      1}, // rock
             {   1,     0,     -1},  // paper

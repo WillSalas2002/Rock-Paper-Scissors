@@ -12,6 +12,7 @@ public class Game {
 
     private final Scanner scanner = new Scanner(System.in);
     private final GameObject[] gameObjects = {new Rock(), new Paper(), new Scissors()};
+    private final Random random = new Random();
 
     public void run() {
         startGameLoop();
@@ -19,7 +20,6 @@ public class Game {
 
     public void startGameLoop() {
 
-        int overallResult = 0;
 
         System.out.println("""
                 Welcome to Rock-Paper-Scissors Game!
@@ -29,6 +29,8 @@ public class Game {
         boolean continueGame = continueGameStr.equals("1");
 
         while (continueGame) {
+
+            int overallResult = 0;
 
             for (int i = 0; i < 3; i++) {
 
@@ -74,8 +76,6 @@ public class Game {
     }
 
     private GameObject getRandomObjectForBot() {
-
-        Random random = new Random();
 
         GameObject randomObj = gameObjects[random.nextInt(3)];
         System.out.println("Bot chose: " + randomObj);
