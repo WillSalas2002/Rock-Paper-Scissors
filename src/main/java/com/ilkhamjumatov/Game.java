@@ -19,6 +19,8 @@ public class Game {
 
     public void startGameLoop(){
 
+        int overallResult = 0;
+
         for (int i = 0; i < 3; i++) {
 
             String userChoice;
@@ -33,19 +35,25 @@ public class Game {
 
             int result = userChoiceObj.compareTo(botChoiceObj);
 
-            if (result > 0) {
-                System.out.println("You won");
-            } else if (result < 0) {
-                System.out.println("Bot won");
-            } else {
-                System.out.println("Draw");
-            }
+            getWinner(result);
 
+            overallResult += result;
         }
 
-        // print who won after each round
-        //
-        // after the loop ended check overall game state and print
+        getWinner(overallResult);
+
+
+    }
+
+    private void getWinner(int overallResult) {
+
+        if (overallResult > 0) {
+            System.out.println("You won the game\n");
+        } else if (overallResult < 0) {
+            System.out.println("You lost the game\n");
+        } else {
+            System.out.println("Draw\n");
+        }
 
     }
 
@@ -62,19 +70,19 @@ public class Game {
     private boolean isValid(String userChoice) {
 
         try {
+
             int userChoiceInt = Integer.parseInt(userChoice);
 
             if (userChoiceInt < 0 || userChoiceInt > 3) {
-                throw new IncorrectUserInputException("Please enter only values between 1 and 3.");
+                System.out.println("Invalid Input. Please enter numbers in the specified range.\n");
+                return false;
             }
 
             System.out.println("You chose: " + gameObjects[userChoiceInt - 1]);
             return true;
 
-        } catch (IncorrectUserInputException e) {
-            System.out.println(e.getMessage());
         } catch (NumberFormatException e) {
-            System.out.println("Please enter only numbers and in the specified range.");
+            System.out.println("Invalid Input. Please enter only numbers and in the specified range.\n");
         }
 
         return false;
@@ -89,8 +97,6 @@ public class Game {
                 2. Paper
                 3. Scissors""");
 
-        String userInput = scanner.next();
-
-        return userInput;
+        return scanner.next();
     }
 }
