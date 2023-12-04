@@ -19,22 +19,29 @@ public class Game {
 
     public void startGameLoop(){
 
-        // greeting
-        // start loop 3 times
         for (int i = 0; i < 3; i++) {
 
             String userChoice;
 
             do {
-                System.out.print("Enter your choice > ");
                 userChoice = getUserInput();
 
             } while (!isValid(userChoice));
 
-            GameObject botChoice = getRandomObjectForBot();
+            GameObject botChoiceObj = getRandomObjectForBot();
+            GameObject userChoiceObj = gameObjects[Integer.parseInt(userChoice) - 1];
+
+            int result = userChoiceObj.compareTo(botChoiceObj);
+
+            if (result > 0) {
+                System.out.println("You won");
+            } else if (result < 0) {
+                System.out.println("Bot won");
+            } else {
+                System.out.println("Draw");
+            }
 
         }
-        // get random object for bot
 
         // print who won after each round
         //
@@ -60,6 +67,8 @@ public class Game {
             if (userChoiceInt < 0 || userChoiceInt > 3) {
                 throw new IncorrectUserInputException("Please enter only values between 1 and 3.");
             }
+
+            System.out.println("You chose: " + gameObjects[userChoiceInt - 1]);
             return true;
 
         } catch (IncorrectUserInputException e) {
