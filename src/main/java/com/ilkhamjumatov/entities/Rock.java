@@ -2,7 +2,7 @@ package com.ilkhamjumatov.entities;
 
 public class Rock extends GameObject {
     public Rock() {
-        super("Rock");
+        super("Rock", 0);
     }
 
     @Override
